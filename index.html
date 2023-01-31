@@ -156,3 +156,55 @@ photographProjectsBtn.addEventListener("click", function() {
   
 </body>
 </html>
+
+
+
+
+
+<div id="prices">
+  <p>Gold: <span id="gold"></span></p>
+  <p>Silver: <span id="silver"></span></p>
+  <p>USD: <span id="USD"></span></p>
+  <p>YEN: <span id="YEN"></span></p>
+  <p>Iranian Toman: <span id="toman"></span></p>
+</div>
+<style>
+  #prices {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+</style>
+<script>
+const API_KEY = "Cs85jpOYLEEuQWBf03zG9kdY96aAkAfX";
+const API_URL = `http://data.fixer.io/api/latest?access_key=${API_KEY}`;
+
+const gold = document.getElementById("gold");
+const silver = document.getElementById("silver");
+const USD = document.getElementById("USD");
+const YEN = document.getElementById("YEN");
+const toman = document.getElementById("toman");
+
+fetch(API_URL)
+  .then(response => response.json())
+  .then(data => {
+    gold.innerHTML = data.rates.XAU;
+    silver.innerHTML = data.rates.XAG;
+    USD.innerHTML = data.rates.USD;
+    YEN.innerHTML = data.rates.JPY;
+    toman.innerHTML = data.rates.IRR / 10;
+  });
+
+setInterval(() => {
+  fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+      gold.innerHTML = data.rates.XAU;
+      silver.innerHTML = data.rates.XAG;
+      USD.innerHTML = data.rates.USD;
+      YEN.innerHTML = data.rates.JPY;
+      toman.innerHTML = data.rates.IRR / 10;
+    });
+}, 1000);
+
+</script>
