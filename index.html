@@ -161,22 +161,61 @@ photographProjectsBtn.addEventListener("click", function() {
 
 
 
-<div id="prices">
-  <p>Gold: <span id="gold"></span></p>
-  <p>Silver: <span id="silver"></span></p>
-  <p>USD: <span id="USD"></span></p>
-  <p>YEN: <span id="YEN"></span></p>
-  <p>Iranian Toman: <span id="toman"></span></p>
-</div>
-<style>
-  #prices {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Live Currency Prices</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id="container">
+    <h1>Live Currency Prices</h1>
+    <div class="price-section">
+      <div class="price-item">
+        <h2>Gold Price</h2>
+        <p id="gold-price"></p>
+      </div>
+      <div class="price-item">
+        <h2>Silver Price</h2>
+        <p id="silver-price"></p>
+      </div>
+      <div class="price-item">
+        <h2>USD Price</h2>
+        <p id="usd-price"></p>
+      </div>
+      <div class="price-item">
+        <h2>JPY Price</h2>
+        <p id="yen-price"></p>
+      </div>
+      <div class="price-item">
+        <h2>Iranian Toman Price</h2>
+        <p id="iranian-toman-price"></p>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="script.js"></script>
+  <style>
+    #container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
 }
 
-</style>
-<script>
-const API_KEY = "Cs85jpOYLEEuQWBf03zG9kdY96aAkAfX";
+.price-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.price-item {
+  width: 30%;
+  margin-bottom: 30px;
+}
+
+  </style>
+  <script>
+    const API_KEY = "Cs85jpOYLEEuQWBf03zG9kdY96aAkAfX";
 const API_URL = `http://data.fixer.io/api/latest?access_key=${API_KEY}`;
 
 const gold = document.getElementById("gold");
@@ -207,4 +246,6 @@ setInterval(() => {
     });
 }, 1000);
 
-</script>
+  </script>
+</body>
+</html>
