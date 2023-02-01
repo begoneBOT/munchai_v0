@@ -161,91 +161,39 @@ photographProjectsBtn.addEventListener("click", function() {
 
 
 
+
+
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Live Currency Prices</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-  <div id="container">
-    <h1>Live Currency Prices</h1>
-    <div class="price-section">
-      <div class="price-item">
-        <h2>Gold Price</h2>
-        <p id="gold-price"></p>
-      </div>
-      <div class="price-item">
-        <h2>Silver Price</h2>
-        <p id="silver-price"></p>
-      </div>
-      <div class="price-item">
-        <h2>USD Price</h2>
-        <p id="usd-price"></p>
-      </div>
-      <div class="price-item">
-        <h2>JPY Price</h2>
-        <p id="yen-price"></p>
-      </div>
-      <div class="price-item">
-        <h2>Iranian Toman Price</h2>
-        <p id="iranian-toman-price"></p>
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript" src="script.js"></script>
-  <style>
-    #container {
-  width: 80%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.price-section {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.price-item {
-  width: 30%;
-  margin-bottom: 30px;
-}
-
-  </style>
-  <script>
-    const API_KEY = "Cs85jpOYLEEuQWBf03zG9kdY96aAkAfX";
-const API_URL = `http://data.fixer.io/api/latest?access_key=${API_KEY}`;
-
-const gold = document.getElementById("gold");
-const silver = document.getElementById("silver");
-const USD = document.getElementById("USD");
-const YEN = document.getElementById("YEN");
-const toman = document.getElementById("toman");
-
-fetch(API_URL)
-  .then(response => response.json())
-  .then(data => {
-    gold.innerHTML = data.rates.XAU;
-    silver.innerHTML = data.rates.XAG;
-    USD.innerHTML = data.rates.USD;
-    YEN.innerHTML = data.rates.JPY;
-    toman.innerHTML = data.rates.IRR / 10;
-  });
-
-setInterval(() => {
-  fetch(API_URL)
-    .then(response => response.json())
-    .then(data => {
-      gold.innerHTML = data.rates.XAU;
-      silver.innerHTML = data.rates.XAG;
-      USD.innerHTML = data.rates.USD;
-      YEN.innerHTML = data.rates.JPY;
-      toman.innerHTML = data.rates.IRR / 10;
-    });
-}, 1000);
-
-  </script>
-</body>
-</html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Live Price of Gold, Silver, USD, YEN, and Iranian Toman</title>
+  </head>
+  <body>
+    <h1>Live Price of Gold, Silver, USD, YEN, and Iranian Toman</h1>
+    <p>Gold: <span id="gold"></span> USD/oz</p>
+    <p>Silver: <span id="silver"></span> USD/oz</p>
+    <p>USD: <span id="USD"></span> USD/USD</p>
+    <p>YEN: <span id="YEN"></span> USD/YEN</p>
+    <p>Iranian Toman: <span id="toman"></span> USD/toman</p>
+    <script>
+      const API_KEY = "Cs85jpOYLEEuQWBf03zG9kdY96aAkAfX";
+      const API_URL = `http://data.fixer.io/api/latest?access_key=${API_KEY}`;
+  
+      const gold = document.getElementById("gold");
+      const silver = document.getElementById("silver");
+      const USD = document.getElementById("USD");
+      const YEN = document.getElementById("YEN");
+      const toman = document.getElementById("toman");
+  
+      setInterval(() => {
+        fetch(API_URL)
+          .then(response => response.json())
+          .then(data => {
+            gold.innerHTML = (1 / data.rates.XAU).toFixed(4);
+            silver.innerHTML = (1 / data.rates.XAG).toFixed(4);
+            USD.innerHTML = data.rates.USD.toFixed(4);
+            YEN.innerHTML = (data.rates.USD / data.rates.JPY).toFixed(4);
+            toman.innerHTML = (data.rates.USD / (data.rates.IRR / 10)).toFixed(4);
+          });
+      }, 1000);
